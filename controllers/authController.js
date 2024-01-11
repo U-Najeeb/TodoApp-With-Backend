@@ -21,7 +21,7 @@ const signup = catchAsync(async (req, res, next) => {
   res.cookie("jwt", token, {
     expires : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
     secure : true,
-    httpOnly : true
+    httpOnly : false
   })
   res.status(200).json({
     message : "Signed in successfully",
@@ -80,4 +80,8 @@ const protect = catchAsync(async (req, res, next) => {
   
   next()
 });
-module.exports = { signup, login, protect };
+
+const logout = catchAsync (async(req, res, next)=>{
+  
+})
+module.exports = { signup, login, protect , logout};

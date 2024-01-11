@@ -14,7 +14,7 @@ app.use(cookieParser());
 
 const protectView = (req, res, next) => {
   let token = req.cookies.jwt
-  if (!token) {
+  if (!token || !token == undefined || token == "") {
     return res.sendFile(__dirname + "/views/index.html");
   }
   next()

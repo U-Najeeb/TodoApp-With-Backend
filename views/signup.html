@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Sign Up</title>
+</head>
+
+<body class="signup--body">
+    <div class="signup--app-container">
+        <div class="signup--app-wrapper">
+            <div class="login--signup-inputFeilds">
+                <form class="signUp--form" method="post">
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" id="name" placeholder="Enter your name" class="name">
+                    <label for="email">Email: </label>
+                    <input type="email" name="Email" id="email" placeholder="Enter your email" class="email">
+                    <label for="password">Password: </label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password"
+                        class="password">
+                    <label for="passwordConfirm">Confirm Password: </label>
+                    <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirm Password"
+                        class="passwordConfirm">
+                    <button type="submit" class="submit--btn">SIGN UP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="signUpScript.js"></script>
+</body>
+
+</html>

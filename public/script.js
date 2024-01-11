@@ -2,17 +2,19 @@
 const form = document.querySelector(".form");
 const todoInput = document.querySelector(".todo--input");
 const container = document.querySelector(".todos--container");
+const logoutBtn = document.querySelector(".logout--btn");
+const headingText = document.querySelector(".heading--text")
 // Function to update the UI based on the provided todos
 
 const token = document.cookie.split("=")[1];
 const updateUI = (todos) => {
   // Clearing the existing content inside the container
+  headingText.textContent = `TODO APP (${todos?.length})`
   container.innerHTML = "";
-
   // Iterating through each todo and creating HTML elements to display them
   todos.forEach((todo) => {
     const html = `
-      <input type="text" name="data" class="todo-text" value="${todo.title}" ${
+    <input type="text" name="data" class="todo-text" value="${todo.title}" ${
       todo.completed ? 'style="text-decoration: line-through;"' : ""
     } disabled>
       <div class="button--box">
@@ -104,7 +106,8 @@ const getTodos = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    updateUI(response.data.todos);
+    console.log(response?.data)
+    updateUI(response?.data?.todos);
   } catch (error) {
     console.error("Something went wrong while fetching the todos.");
   }
@@ -140,6 +143,21 @@ form.addEventListener("submit", async (e) => {
   todoInput.value = " ";
 });
 
+const deleteCookie = (name) => {
+  const expirationDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=; expires=${expirationDate.toUTCString()}; path=/;`;
+
+  if (document.cookie == "") {
+    window.location.replace("http://localhost:5500/index.html");
+    window.location.reload();
+  }
+};
+
+logoutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const cookieName = document.cookie.split("=")[0];
+  deleteCookie(cookieName);
+});
 // Initial actions to fetch todos and set up event listeners
 getTodos();
 methods();

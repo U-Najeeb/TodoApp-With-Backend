@@ -4,7 +4,8 @@
   "description": "Full Stack Todo App",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "server": "node server.js"
   },
   "author": "Umair",
   "license": "ISC",

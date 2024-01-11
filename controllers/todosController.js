@@ -1,16 +1,14 @@
 const Todo = require("../models/todoModel");
+const catchAsync = require("../utils/catchAsync");
 
-const getTodos = async (req, res) => {
-  try {
-    const todos = await Todo.find();
-    res.status(200).json({
-      message: "Todos found",
-      todos,
-    });
-  } catch (error) {
-    res.status(400).send("Todos Not Found");
-  }
-};
+const getTodos = catchAsync(async (req, res) => {
+  const todos = await Todo.find({user : req.user._id});
+  res.status(200).json({
+    message: "Todos found",
+    todos,
+  });
+});
+
 const getTodo = async (req, res) => {
   try {
     const id = req.params.id;
@@ -25,8 +23,9 @@ const getTodo = async (req, res) => {
 };
 const addTodo = async (req, res) => {
   try {
-    const body = req.body;
-    const todo = await Todo.create(body);
+    const { _id } = req.user;
+    const { title } = req.body;
+    const todo = await Todo.create({ title, user: _id });
     res.status(201).json({
       message: "Todo created",
       todo,
@@ -36,16 +35,15 @@ const addTodo = async (req, res) => {
   }
 };
 const updateTodo = async (req, res) => {
-    const id = req.params.id
-    const tour = await Todo.findByIdAndUpdate(id , req.body, {
-        new : true,
-        runValidators: true
-    })
-    res.status(200).json({
-        message : "Todo updated",
-        tour
-    })
-
+  const id = req.params.id;
+  const tour = await Todo.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    message: "Todo updated",
+    tour,
+  });
 };
 const deleteTodo = async (req, res) => {
   try {

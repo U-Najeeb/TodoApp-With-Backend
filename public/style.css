@@ -98,6 +98,60 @@ input:disabled {
     color: black;
     border : inherit;
 }
+
+/* LOGIN PAGE */
+.login--body {
+    background: #e4e2e2;
+}
+.login--app-container{
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40rem;
+    width: 40%;
+    margin: 20rem auto;
+    border-radius: 1rem;
+}
+.login--signup-inputFeilds, .login--feild, .signup--feild{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+.login--app-wrapper{
+    width: 50%;
+}
+.email, .password{
+    font-size: 1.5rem ;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid  black;
+    outline: none;
+    margin : 1rem 0;
+    width: 100%;
+}
+.submit--btn{
+    padding: 1rem;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    width: 10rem;
+    margin : 2rem 0;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+.submit--btn:hover{
+    background: #1463f3;
+    transition: all ease 0.3s;
+    color: white;
+}
+.sign--up-text{
+    font-size: 1.5rem;
+}
+.sign--up-link{
+    text-decoration: none;
+    color: #1463f3 ;
+}
 @media only screen and (max-width : 320px) {
     .app-container{
         width: 100%;

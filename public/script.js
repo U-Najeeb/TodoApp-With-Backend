@@ -2,8 +2,9 @@
 const form = document.querySelector(".form");
 const todoInput = document.querySelector(".todo--input");
 const container = document.querySelector(".todos--container");
-
 // Function to update the UI based on the provided todos
+
+const token = document.cookie.split("=")[1];
 const updateUI = (todos) => {
   // Clearing the existing content inside the container
   container.innerHTML = "";
@@ -38,15 +39,31 @@ const methods = () => {
       const tickedEle = element.firstElementChild;
       const taskId = element.getAttribute("task-id");
       tickedEle.style.textDecoration = "line-through";
-      await axios.patch(`/api/v1/todos/${taskId}`, { completed: true });
+      await axios.patch(
+        `/api/v1/todos/${taskId}`,
+        { completed: true },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     }
 
     // Handling "Delete" button click
     if (e.target.classList.contains("delete")) {
       const element = e.target.closest(".todo--row");
       const taskId = element.getAttribute("task-id");
-      await axios.delete(`/api/v1/todos/${taskId}`);
-      const response = await axios.get("/api/v1/todos");
+      await axios.delete(`/api/v1/todos/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response = await axios.get("/api/v1/todos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const updatedTodos = response.data.todos;
       updateUI(updatedTodos);
     }
@@ -63,7 +80,15 @@ const methods = () => {
         const newTitle = editElement.value.trim();
         if (newTitle !== "") {
           // Update the title in the database
-          await axios.patch(`/api/v1/todos/${taskId}`, { title: newTitle });
+          await axios.patch(
+            `/api/v1/todos/${taskId}`,
+            { title: newTitle },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           editElement.setAttribute("disabled", true);
         }
       });
@@ -74,14 +99,18 @@ const methods = () => {
 // Function to fetch todos from the server and update the UI
 const getTodos = async () => {
   try {
-    const response = await axios.get("/api/v1/todos");
+    const response = await axios.get("/api/v1/todos/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     updateUI(response.data.todos);
   } catch (error) {
     console.error("Something went wrong while fetching the todos.");
   }
 };
-
 // Event listener for form submission to add a new todo
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -98,7 +127,11 @@ form.addEventListener("submit", async (e) => {
   };
 
   // Sending a request to add the new todo
-  await axios.post("/api/v1/todos", newTodo);
+  await axios.post("/api/v1/todos", newTodo, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   // Fetching the latest todos and updating the UI
   getTodos();

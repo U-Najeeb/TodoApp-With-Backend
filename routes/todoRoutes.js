@@ -6,12 +6,15 @@ const {
   deleteTodo,
   addTodo,
 } = require("../controllers/todosController");
+const { protect } = require("../controllers/authController");
+
 const todoRouter = express.Router();
 
-todoRouter.route("/").get(getTodos);
-todoRouter.route("/").post(addTodo);
-todoRouter.route("/:id").get(getTodo);
-todoRouter.route("/:id").patch(updateTodo);
-todoRouter.route("/:id").delete(deleteTodo);
+
+todoRouter.route("/").get(protect, getTodos);
+todoRouter.route("/").post(protect, addTodo);
+todoRouter.route("/:id").get(protect, getTodo);
+todoRouter.route("/:id").patch(protect, updateTodo);
+todoRouter.route("/:id").delete(protect, deleteTodo);
 
 module.exports = todoRouter;

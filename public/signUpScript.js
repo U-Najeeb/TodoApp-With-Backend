@@ -11,7 +11,7 @@ const signupFunction = async (data) => {
     console.log(response);
 
     if (response.data.token) {
-      window.location.href = "http://localhost:5500/todos.html";
+      window.location.href = "https://todos-app-5s9u.onrender.com/todos.html";
     }
   } catch (error) {
     console.error("Error:", error);

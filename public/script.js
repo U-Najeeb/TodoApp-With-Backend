@@ -148,7 +148,7 @@ const deleteCookie = (name) => {
   document.cookie = `${name}=; expires=${expirationDate.toUTCString()}; path=/;`;
 
   if (document.cookie == "") {
-    window.location.replace("http://localhost:5500/index.html");
+    window.location.replace("https://todos-app-5s9u.onrender.com/index.html");
     window.location.reload();
   }
 };
